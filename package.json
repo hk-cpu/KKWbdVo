@@ -1,0 +1,17 @@
+{
+  "name": "forme-haus",
+  "version": "1.0.0",
+  "description": "FORMÉ HAUS - Where Essence Meets Elegance",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0"
+  },
+  "keywords": ["fashion", "website", "static"],
+  "author": "FORMÉ HAUS",
+  "license": "MIT"
+}
