@@ -1,0 +1,17 @@
+# Dependencies & build output
+node_modules/
+dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local credentials
+shopify-credentials.js
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+

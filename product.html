@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collections - FORMÉ HAUS</title>
+    <title>Product - FORMÉ HAUS</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,40 +80,37 @@
 
     <main class="pt-32 pb-16 md:pt-40 md:pb-24">
         <div class="container mx-auto px-6">
-            
-            <section class="mb-24">
-                <div class="text-center mb-16 animate-on-scroll">
-                    <h1 data-split-text class="font-heading text-4xl md:text-5xl" data-i18n="collections.title">The Signature Collection</h1>
-                    <p class="mt-4 text-mid-grey max-w-xl mx-auto">Timeless pieces that define the essence of FORMÉ HAUS.</p>
-                    <div id="collections-bar" class="mt-6 flex flex-wrap gap-2 justify-center"></div>
-                </div>
-                <div id="shop-products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12"></div>
-            </section>
-            
-            <section>
-                <div class="text-center mb-16 animate-on-scroll">
-                    <h2 class="font-heading text-4xl md:text-5xl">Seasonal Edit</h2>
-                    <p class="mt-4 text-mid-grey max-w-xl mx-auto">A curated selection of contemporary designs for the current season.</p>
-                </div>
-                <div id="seasonal-edit" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-                     <div class="animate-on-scroll group">
-                        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?q=80&w=1886&auto=format&fit=crop" alt="Woman in white" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"></div>
-                        <h3 class="font-heading text-xl mt-4">Linen Drape Top</h3>
-                        <a href="#" class="text-sm text-mid-grey hover:text-charcoal transition-colors">View Details</a>
-                    </div>
-                    <div class="animate-on-scroll group" style="--animation-delay: 150ms;">
-                        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1516522883134-159570c92a95?q=80&w=1887&auto=format&fit=crop" alt="Man in jacket" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"></div>
-                        <h3 class="font-heading text-xl mt-4">Nocturne Bomber</h3>
-                        <a href="#" class="text-sm text-mid-grey hover:text-charcoal transition-colors">View Details</a>
-                    </div>
-                    <div class="animate-on-scroll group" style="--animation-delay: 300ms;">
-                        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?q=80&w=1887&auto=format&fit=crop" alt="Woman sitting" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"></div>
-                        <h3 class="font-heading text-xl mt-4">Satin Slip Skirt</h3>
-                        <a href="#" class="text-sm text-mid-grey hover:text-charcoal transition-colors">View Details</a>
+            <div id="product-detail" class="grid md:grid-cols-2 gap-12 lg:gap-24">
+                <div class="animate-on-scroll">
+                    <div id="product-images" class="swiper">
+                        <div class="swiper-wrapper">
+                            <!-- Images will be dynamically loaded here -->
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1542838686-37da42b91d75?q=80&w=1887&auto=format&fit=crop" alt="Product image" class="w-full h-auto object-cover">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
-            </section>
-
+                
+                <div class="animate-on-scroll" style="--animation-delay: 150ms;">
+                    <h1 id="product-title" class="font-heading text-3xl md:text-4xl" data-split-text>Product Title</h1>
+                    <p id="product-price" class="text-xl mt-2 text-soft-gold">$0.00</p>
+                    <p id="product-description" class="mt-6 text-lg text-mid-grey leading-relaxed">Product description will appear here.</p>
+                    
+                    <div class="mt-8">
+                        <h3 class="font-semibold mb-2">Select Variant</h3>
+                        <div id="product-variants" class="flex flex-wrap gap-2">
+                            <!-- Variants will be dynamically loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <button id="add-to-cart" class="btn-primary">Add to Cart</button>
+                        <button class="btn-secondary">Save to Wishlist</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -162,13 +159,6 @@
         </div>
     </div>
 
-    <script type="module" src="script.js"></script>
+    <script type="module" src="product-script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-

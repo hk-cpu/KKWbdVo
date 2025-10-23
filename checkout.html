@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - FORMA% HAUS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-off-white text-charcoal font-body">
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html">
+        <img src="https://r2.flowith.net/files/2d4a2b22-5944-4bf1-9d9f-e4791f8fa491/3EWHP-FormeHaus-01-01@2000x1040.png" alt="FORMA% HAUS Logo" class="h-8 md:h-10 transition-all duration-300" id="header-logo">
+      </a>
+      <nav class="hidden md:flex items-center space-x-12 text-sm tracking-wider uppercase font-medium">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+        <a href="collections.html" class="nav-link" data-i18n="nav.collections">Collections</a>
+        <a href="about.html" class="nav-link" data-i18n="nav.about">About</a>
+        <a href="#" class="nav-link" data-i18n="nav.contact">Contact</a>
+        <a id="admin-link" href="#" class="nav-link hidden">Admin</a>
+        <div class="flex items-center gap-2">
+          <button id="lang-en" class="px-2 py-1 border border-white/20">EN</button>
+          <button id="lang-ar" class="px-2 py-1 border border-white/20">AR</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-16 md:pt-40 md:pb-24">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-10">
+        <h1 class="font-heading text-3xl md:text-4xl" data-i18n="checkout.title">Checkout</h1>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="md:col-span-2 bg-white p-6 border border-white/10">
+          <h2 class="font-semibold mb-4">Cart Summary</h2>
+          <div id="checkout-items" class="space-y-4"></div>
+        </div>
+        <div class="bg-white p-6 border border-white/10">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-semibold">Total</span>
+            <span id="checkout-total" class="font-semibold">$0.00</span>
+          </div>
+          <button id="start-payment" class="btn-primary w-full" data-i18n="checkout.pay">Proceed to Payment</button>
+          <div id="payment-providers" class="mt-4 text-sm text-mid-grey"></div>
+          <div id="checkout-status" class="mt-4 text-sm"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="checkout.js"></script>
+</body>
+</html>
+

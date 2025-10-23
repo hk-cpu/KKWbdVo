@@ -1,0 +1,51 @@
+FORMÉ HAUS Shopify Integration - Setup Instructions
+===================================================
+
+Congratulations! The Shopify integration files have been created and copied to your "JOHARA S WEBSITE" folder on your desktop.
+
+Due to system restrictions, you'll need to complete the setup manually. Please follow these steps:
+
+1. SET UP YOUR SHOPIFY CREDENTIALS
+   -------------------------------
+   a. Navigate to your JOHARA S WEBSITE folder on your desktop
+   b. Copy the "SHOPIFY_CREDENTIALS_TEMPLATE.js" file
+   c. Rename the copy to "shopify-credentials.js"
+   d. Edit "shopify-credentials.js" and replace the placeholder values:
+      - Replace "your-store-name.myshopify.com" with your actual Shopify store domain
+      - Replace "your-public-access-token" with your actual Storefront API access token
+
+2. INSTALL DEPENDENCIES
+   --------------------
+   a. Open Command Prompt or PowerShell as Administrator
+   b. Navigate to your JOHARA S WEBSITE folder:
+      cd "C:\Users\futte\Desktop\JOHARA S WEBSITE"
+   c. Run the following command:
+      npm install @shopify/storefront-api-client
+
+   If you encounter execution policy issues:
+   - Open PowerShell as Administrator
+   - Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   - Press "Y" and Enter
+   - Close PowerShell and try the npm install command again
+
+3. REPLACE THE SHOPIFY SERVICE FILE
+   -------------------------------
+   a. Rename "updated-shopify-service.js" to "shopify-service.js"
+   b. This will replace the original shopify-service.js file with the updated version
+      that uses the credentials file
+
+4. RUN THE DEVELOPMENT SERVER
+   --------------------------
+   a. In the same command prompt, run:
+      npm run dev
+   b. Open your browser and navigate to http://localhost:3000
+
+5. TEST THE INTEGRATION
+   --------------------
+   a. Visit the Collections page to see Shopify products
+   b. Click on any product to view its details from Shopify
+   c. Try adding a product to the cart
+
+For more detailed instructions, please refer to the SHOPIFY_INTEGRATION_README.md file.
+
+If you encounter any issues, please refer to the complete-setup.js file for additional troubleshooting steps.

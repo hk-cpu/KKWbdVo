@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Run FORMÉ HAUS Website</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        .method {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .step {
+            background-color: #d5f5e3;
+            padding: 15px;
+            border-left: 4px solid #27ae60;
+            margin: 15px 0;
+        }
+        .note {
+            background-color: #fef9e7;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #fadbd8;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FORMÉ HAUS Website - How to Run</h1>
+        
+        <p>Welcome to the FORMÉ HAUS website. This is a static HTML/CSS/JavaScript website for the fictional fashion brand FORMÉ HAUS.</p>
+        
+        <h2>Previewing the Website</h2>
+        
+        <div class="method">
+            <h3>Method 1: Direct Browser Opening (No Installation Required)</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Navigate to the project folder<br>
+                <code>c:\Users\futte\Downloads\BP9XP-flowith_oracle_KKWbdVo\KKWbdVo</code>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Double-click on <a href="index.html">index.html</a> to open it in your default browser
+            </div>
+            <div class="note">
+                <strong>Note:</strong> Some features might not work perfectly when opened this way due to browser security restrictions.
+            </div>
+        </div>
+        
+        <div class="method">
+            <h3>Method 2: Using a Local Development Server (Recommended)</h3>
+            <p>To get the full functionality and enable hot reloading, you can run a local development server.</p>
+            
+            <h4>Option A: Using Node.js (Recommended)</h4>
+            <div class="step">
+                <strong>Step 1:</strong> Install Node.js from <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> After installation, double-click on <a href="start-dev-server.bat">start-dev-server.bat</a> or run in terminal:
+                <pre>node server.js</pre>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Open your browser and go to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+            </div>
+            
+            <h4>Option B: Using npm (If Node.js is installed)</h4>
+            <div class="step">
+                <strong>Step 1:</strong> Install dependencies:
+                <pre>npm install</pre>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Start the development server:
+                <pre>npm run dev</pre>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Open your browser and go to the URL shown in the terminal (typically http://localhost:5173)
+            </div>
+        </div>
+        
+        <div class="warning">
+            <strong>Important:</strong> It appears that Node.js is not currently installed on your system. Please install it from <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a> to use the development server options.
+        </div>
+        
+        <h2>Project Structure</h2>
+        <ul>
+            <li><strong>index.html</strong> - Home page</li>
+            <li><strong>collections.html</strong> - Collections page</li>
+            <li><strong>about.html</strong> - About page</li>
+            <li><strong>style.css</strong> - Custom styles</li>
+            <li><strong>script.js</strong> - JavaScript functionality</li>
+            <li><strong>package.json</strong> - Project configuration and dependencies</li>
+            <li><strong>server.js</strong> - Simple Node.js server for local development</li>
+            <li><strong>start-dev-server.bat</strong> - Windows batch file to start the development server</li>
+        </ul>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" class="btn">View Website (Direct)</a>
+            <a href="start-dev-server.bat" class="btn">Start Development Server (After Node.js Install)</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -24,9 +24,9 @@
                 <img src="https://r2.flowith.net/files/2d4a2b22-5944-4bf1-9d9f-e4791f8fa491/3EWHP-FormeHaus-01-01@2000x1040.png" alt="FORMÉ HAUS Logo" class="h-8 md:h-10 transition-all duration-300" id="header-logo">
             </a>
             <nav class="hidden md:flex items-center space-x-12 text-sm tracking-wider uppercase font-medium">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
                 <div class="nav-item-with-mega-menu">
-                    <a href="collections.html" class="nav-link">Collections</a>
+                    <a href="collections.html" class="nav-link" data-i18n="nav.collections">Collections</a>
                     <div class="mega-menu">
                         <div class="container mx-auto px-6 py-8 grid grid-cols-4 gap-8">
                            <div>
@@ -60,8 +60,17 @@
                         </div>
                     </div>
                 </div>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="#" class="nav-link">Contact</a>
+                <a href="about.html" class="nav-link" data-i18n="nav.about">About</a>
+                <a href="#" class="nav-link" data-i18n="nav.contact">Contact</a>
+                <a id="admin-link" href="#" class="nav-link hidden">Admin</a>
+                <div class="flex items-center gap-2">
+                    <button id="lang-en" class="px-2 py-1 border border-white/20">EN</button>
+                    <button id="lang-ar" class="px-2 py-1 border border-white/20">AR</button>
+                </div>
+                <button id="cart-button" class="relative">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-3 text-xs bg-soft-gold text-charcoal rounded-full px-1.5 py-0.5">0</span>
+                </button>
             </nav>
              <button class="md:hidden">
                 <i data-lucide="menu" class="w-6 h-6"></i>
@@ -72,21 +81,27 @@
     <main>
         <section class="h-screen w-full relative flex items-center justify-center text-center">
             <div class="absolute top-0 left-0 w-full h-full bg-deep-umber opacity-60 z-10"></div>
-            <video autoplay loop muted playsinline class="absolute top-0 left-0 w-full h-full object-cover">
-                <source src="https://videos.pexels.com/video-files/853877/853877-hd_1920_1080_25fps.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+            <!-- Video background -->
+            <video autoplay muted loop class="absolute top-0 left-0 w-full h-full object-cover z-0">
+                <source src="hero.mp4" type="video/mp4">
+                <!-- Fallback to image if video doesn't load -->
+                <div class="absolute top-0 left-0 w-full h-full object-cover bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1887&auto=format&fit=crop');"></div>
             </video>
+            <div class="light-rays" data-light-rays style="z-index:15"></div>
             <div class="relative z-20 px-6 animate-on-scroll">
-                <h1 class="font-heading text-5xl md:text-7xl text-off-white">Where Essence Meets Elegance</h1>
-                <a href="collections.html" class="btn-primary mt-8">Shop Now</a>
+                
+                <div class="mt-4 text-off-white/90 text-sm tracking-wide" data-scroll-velocity data-speed="0.7">
+                    NEW ARRIVALS — SIGNATURE COLLECTION — MODERN TAILORING — ELEVATED ESSENTIALS —
+                </div>
+                <a href="collections.html" class="btn-primary mt-8" data-i18n="hero.cta">Shop Now</a>
             </div>
         </section>
 
         <section class="py-24 md:py-32 bg-off-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16 animate-on-scroll">
-                    <h2 class="font-heading text-4xl md:text-5xl">Featured Collections</h2>
-                    <p class="mt-4 text-mid-grey max-w-xl mx-auto">Discover our latest creations, where timeless design meets contemporary craftsmanship.</p>
+                    <h2 class="font-heading text-4xl md:text-5xl" data-split-text data-i18n="section.featured">Featured Collections</h2>
+                    <p class="mt-4 text-mid-grey max-w-xl mx-auto" data-i18n="section.featured.desc">Discover our latest creations, where timeless design meets contemporary craftsmanship.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
                     <div class="animate-on-scroll">
@@ -105,12 +120,55 @@
 
         <section class="py-24 md:py-32 bg-white">
             <div class="container mx-auto px-6">
+                <div class="text-center mb-12 animate-on-scroll">
+                    <h2 class="font-heading text-4xl md:text-5xl" data-split-text data-i18n="bento.title">Magic Bento</h2>
+                    <p class="mt-4 text-mid-grey max-w-xl mx-auto" data-i18n="bento.desc">Interactive highlights powered by CSS & JS.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-magic-bento>
+                    <a href="collections.html" class="mb-card relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop" alt="New Arrivals" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
+                        <div class="mb-card-content relative">
+                            <i data-lucide="sparkles"></i>
+                            <h3 class="font-heading text-xl" data-i18n="bento.new">New Arrivals</h3>
+                            <p class="text-mid-grey mt-2" data-i18n="bento.new.desc">Explore the latest drops.</p>
+                        </div>
+                    </a>
+                    <a href="collections.html" class="mb-card relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?q=80&w=1400&auto=format&fit=crop" alt="Signature" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
+                        <div class="mb-card-content relative">
+                            <i data-lucide="gem"></i>
+                            <h3 class="font-heading text-xl" data-i18n="bento.signature">Signature Edit</h3>
+                            <p class="text-mid-grey mt-2" data-i18n="bento.signature.desc">Timeless pieces reimagined.</p>
+                        </div>
+                    </a>
+                    <a href="collections.html" class="mb-card relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1400&auto=format&fit=crop" alt="Essentials" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
+                        <div class="mb-card-content relative">
+                            <i data-lucide="layers"></i>
+                            <h3 class="font-heading text-xl" data-i18n="bento.essentials">Essentials</h3>
+                            <p class="text-mid-grey mt-2" data-i18n="bento.essentials.desc">Elevated everyday staples.</p>
+                        </div>
+                    </a>
+                    <a href="collections.html" class="mb-card relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop" alt="Accessories" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
+                        <div class="mb-card-content relative">
+                            <i data-lucide="briefcase"></i>
+                            <h3 class="font-heading text-xl" data-i18n="bento.accessories">Accessories</h3>
+                            <p class="text-mid-grey mt-2" data-i18n="bento.accessories.desc">Finishing touches that shine.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
                     <div class="animate-on-scroll">
                         <img src="https://images.unsplash.com/photo-1522201949107-688a537a8848?q=80&w=1887&auto=format&fit=crop" alt="Fashion designer's studio" class="w-full h-auto object-cover">
                     </div>
                     <div class="animate-on-scroll" style="--animation-delay: 150ms;">
-                        <h2 class="font-heading text-4xl md:text-5xl">Our Story</h2>
+                        <h2 class="font-heading text-4xl md:text-5xl" data-split-text data-i18n="section.story">Our Story</h2>
                         <p class="mt-6 text-lg text-mid-grey leading-relaxed">FORMÉ HAUS was born from a desire to create pieces that are both timeless and contemporary. We believe in the power of form, the integrity of materials, and the elegance of simplicity. Our collections are designed not just to be worn, but to be lived in, becoming a seamless part of your personal narrative.</p>
                         <a href="about.html" class="btn-secondary mt-8">Learn More</a>
                     </div>
@@ -150,6 +208,20 @@
             </div>
         </div>
     </footer>
+
+    <!-- Cart drawer -->
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-80 bg-off-white shadow-2xl z-[60] transform translate-x-full transition-transform">
+        <div class="h-full flex flex-col">
+            <div class="p-4 flex items-center justify-between border-b border-white/10">
+                <h3 class="font-semibold tracking-wider uppercase">Your Cart</h3>
+                <button id="cart-close"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-4"></div>
+            <div class="p-4 border-t border-white/10">
+                <a id="cart-checkout" href="#" class="btn-primary block text-center">Checkout</a>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="script.js"></script>
 </body>
