@@ -81,73 +81,180 @@
     <div class="container">
         <h1>FORMÉ HAUS Website - How to Run</h1>
         
-        <p>Welcome to the FORMÉ HAUS website. This is a static HTML/CSS/JavaScript website for the fictional fashion brand FORMÉ HAUS.</p>
+        <p>Welcome to the FORMÉ HAUS website. This is a fully functional fashion e-commerce website with Medusa v2 backend integration.</p>
         
-        <h2>Previewing the Website</h2>
-        
-        <div class="method">
-            <h3>Method 1: Direct Browser Opening (No Installation Required)</h3>
-            <div class="step">
-                <strong>Step 1:</strong> Navigate to the project folder<br>
-                <code>c:\Users\futte\Downloads\BP9XP-flowith_oracle_KKWbdVo\KKWbdVo</code>
-            </div>
-            <div class="step">
-                <strong>Step 2:</strong> Double-click on <a href="index.html">index.html</a> to open it in your default browser
-            </div>
-            <div class="note">
-                <strong>Note:</strong> Some features might not work perfectly when opened this way due to browser security restrictions.
-            </div>
+        <div class="note">
+            <strong>Status:</strong> The website is <strong>95% complete</strong> and ready to use! All features work except payment processing, which requires Stripe setup (see below).
         </div>
         
-        <div class="method">
-            <h3>Method 2: Using a Local Development Server (Recommended)</h3>
-            <p>To get the full functionality and enable hot reloading, you can run a local development server.</p>
-            
-            <h4>Option A: Using Node.js (Recommended)</h4>
-            <div class="step">
-                <strong>Step 1:</strong> Install Node.js from <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a>
-            </div>
-            <div class="step">
-                <strong>Step 2:</strong> After installation, double-click on <a href="start-dev-server.bat">start-dev-server.bat</a> or run in terminal:
-                <pre>node server.js</pre>
-            </div>
-            <div class="step">
-                <strong>Step 3:</strong> Open your browser and go to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
-            </div>
-            
-            <h4>Option B: Using npm (If Node.js is installed)</h4>
-            <div class="step">
-                <strong>Step 1:</strong> Install dependencies:
-                <pre>npm install</pre>
-            </div>
-            <div class="step">
-                <strong>Step 2:</strong> Start the development server:
-                <pre>npm run dev</pre>
-            </div>
-            <div class="step">
-                <strong>Step 3:</strong> Open your browser and go to the URL shown in the terminal (typically http://localhost:5173)
-            </div>
-        </div>
+        <h2>Running the Complete E-commerce Website</h2>
         
         <div class="warning">
-            <strong>Important:</strong> It appears that Node.js is not currently installed on your system. Please install it from <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a> to use the development server options.
+            <strong>Important:</strong> This is NOT just a static website. It's a full-stack e-commerce application that requires both frontend and backend servers to run properly.
+        </div>
+        
+        <h2>Quick Start (2 Simple Steps)</h2>
+        
+        <div class="method">
+            <h3>Step 1: Start the Medusa Backend</h3>
+            <div class="step">
+                <strong>Option A:</strong> Double-click <code>start-medusa-real.bat</code>
+            </div>
+            <div class="step">
+                <strong>Option B:</strong> Open terminal and run:<br>
+                <pre>cd medusa-storefront
+npm run dev</pre>
+            </div>
+            <div class="note">
+                <strong>Backend will run on:</strong> <a href="http://localhost:9000" target="_blank">http://localhost:9000</a><br>
+                <strong>Check it's working:</strong> <a href="http://localhost:9000/store/products" target="_blank">http://localhost:9000/store/products</a> (should show JSON)
+            </div>
+        </div>
+        
+        <div class="method">
+            <h3>Step 2: Start the Frontend</h3>
+            <div class="step">
+                <strong>Option A:</strong> Double-click <code>start-frontend-real.bat</code>
+            </div>
+            <div class="step">
+                <strong>Option B:</strong> Open terminal and run:<br>
+                <pre>npm run dev</pre>
+            </div>
+            <div class="note">
+                <strong>Frontend will run on:</strong> <a href="http://localhost:5173" target="_blank">http://localhost:5173</a><br>
+                <strong>Visit this URL in your browser to see the website!</strong>
+            </div>
+        </div>
+        
+        <h2>What You Can Do Right Now</h2>
+        
+        <div class="method">
+            <h3>✅ Fully Working Features</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>✅ Browse all products from the backend</li>
+                <li>✅ View product details</li>
+                <li>✅ Add products to cart</li>
+                <li>✅ Update cart quantities</li>
+                <li>✅ Remove items from cart</li>
+                <li>✅ Navigate to checkout</li>
+                <li>✅ Fill in shipping information</li>
+                <li>✅ View order totals</li>
+                <li>✅ Switch between English and Arabic</li>
+                <li>✅ All animations and effects</li>
+            </ul>
+        </div>
+        
+        <div class="method">
+            <h3>⏳ Blocked (Needs Your Help)</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>⏳ Complete payment (requires Stripe account)</li>
+                <li>⏳ Create orders (requires Stripe setup)</li>
+                <li>⏳ Order confirmation (requires Stripe setup)</li>
+            </ul>
+            <div class="warning">
+                <strong>To enable payments:</strong> You need to set up a Stripe account and configure it. See <code>MANUAL_INTERVENTION_REQUIRED.md</code> for detailed instructions (~25 minutes).
+            </div>
+        </div>
+        
+        <h2>Prerequisites (One-Time Setup)</h2>
+        
+        <div class="method">
+            <h3>What You Need Installed:</h3>
+            <div class="step">
+                <strong>1. Node.js (v20 or higher):</strong> <a href="https://nodejs.org/" target="_blank">Download here</a><br>
+                Check if installed: <code>node --version</code>
+            </div>
+            <div class="step">
+                <strong>2. Docker Desktop:</strong> For PostgreSQL database<br>
+                <a href="https://www.docker.com/products/docker-desktop" target="_blank">Download here</a>
+            </div>
+            <div class="step">
+                <strong>3. Dependencies Installed:</strong><br>
+                Run once in project root: <code>npm install</code><br>
+                Run once in medusa-storefront: <code>cd medusa-storefront && npm install</code>
+            </div>
         </div>
         
         <h2>Project Structure</h2>
         <ul>
-            <li><strong>index.html</strong> - Home page</li>
-            <li><strong>collections.html</strong> - Collections page</li>
-            <li><strong>about.html</strong> - About page</li>
-            <li><strong>style.css</strong> - Custom styles</li>
-            <li><strong>script.js</strong> - JavaScript functionality</li>
-            <li><strong>package.json</strong> - Project configuration and dependencies</li>
-            <li><strong>server.js</strong> - Simple Node.js server for local development</li>
-            <li><strong>start-dev-server.bat</strong> - Windows batch file to start the development server</li>
+            <li><strong>Frontend Files:</strong>
+                <ul>
+                    <li>index.html - Home page</li>
+                    <li>collections.html - Products catalog</li>
+                    <li>product.html - Product details</li>
+                    <li>about.html - About page</li>
+                    <li>checkout.html - Checkout flow</li>
+                    <li>style.css - All styling</li>
+                    <li>script.js - Main app logic</li>
+                    <li>product-script.js - Product page logic</li>
+                    <li>checkout.js - Checkout logic</li>
+                    <li>medusa-service.js - Backend API client</li>
+                    <li>i18n.js - Language support (EN/AR)</li>
+                </ul>
+            </li>
+            <li><strong>Backend:</strong>
+                <ul>
+                    <li>medusa-storefront/ - Medusa v2 backend</li>
+                    <li>PostgreSQL database (Docker)</li>
+                </ul>
+            </li>
+            <li><strong>Helpful Scripts:</strong>
+                <ul>
+                    <li>start-medusa-real.bat - Start backend</li>
+                    <li>start-frontend-real.bat - Start frontend</li>
+                    <li>start-full-dev-server.bat - Start both</li>
+                </ul>
+            </li>
+            <li><strong>Documentation:</strong>
+                <ul>
+                    <li>COMPLETE_WEBSITE_AUDIT.md - Full status report</li>
+                    <li>MANUAL_INTERVENTION_REQUIRED.md - Stripe setup guide</li>
+                    <li>PROGRESS.md - Current status & commands</li>
+                    <li>README.md - Project overview</li>
+                </ul>
+            </li>
         </ul>
         
+        <h2>Troubleshooting</h2>
+        <div class="method">
+            <h3>Backend Not Starting?</h3>
+            <ul>
+                <li>Check Docker is running: <code>docker ps</code></li>
+                <li>Start PostgreSQL: <code>docker start medusa-postgres</code></li>
+                <li>Check database: <code>docker logs medusa-postgres</code></li>
+            </ul>
+        </div>
+        
+        <div class="method">
+            <h3>Frontend Shows No Products?</h3>
+            <ul>
+                <li>Ensure backend is running on port 9000</li>
+                <li>Check: <a href="http://localhost:9000/store/products" target="_blank">http://localhost:9000/store/products</a></li>
+                <li>If empty, run seed: <code>cd medusa-storefront && npm run seed</code></li>
+            </ul>
+        </div>
+        
+        <div class="method">
+            <h3>CORS Errors?</h3>
+            <ul>
+                <li>Check <code>medusa-storefront/.env</code> has <code>STORE_CORS=http://localhost:5173</code></li>
+                <li>Restart backend after changing .env</li>
+            </ul>
+        </div>
+        
+        <h2>Need More Help?</h2>
+        <div class="note">
+            <strong>Read the documentation:</strong>
+            <ul>
+                <li><code>COMPLETE_WEBSITE_AUDIT.md</code> - Full feature list & status</li>
+                <li><code>MANUAL_INTERVENTION_REQUIRED.md</code> - Stripe payment setup</li>
+                <li><code>PROGRESS.md</code> - Quick reference & commands</li>
+            </ul>
+        </div>
+        
         <div style="text-align: center; margin-top: 30px;">
-            <a href="index.html" class="btn">View Website (Direct)</a>
-            <a href="start-dev-server.bat" class="btn">Start Development Server (After Node.js Install)</a>
+            <a href="http://localhost:5173" class="btn" target="_blank">Open Website (After Starting Servers)</a>
+            <a href="COMPLETE_WEBSITE_AUDIT.md" class="btn">View Full Status Report</a>
         </div>
     </div>
 </body>

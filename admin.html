@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORMÉ HAUS Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <header class="bg-white shadow">
+            <div class="container mx-auto px-4 py-6">
+                <h1 class="text-2xl font-bold text-gray-800">FORMÉ HAUS Admin Panel</h1>
+                <p class="text-gray-600">Manage products and collections for the storefront</p>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Products Section -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold">Products</h2>
+                        <button id="add-product-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                            Add Product
+                        </button>
+                    </div>
+                    
+                    <div id="products-list" class="space-y-4">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Collections Section -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold">Collections</h2>
+                        <button id="add-collection-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                            Add Collection
+                        </button>
+                    </div>
+                    
+                    <div id="collections-list" class="space-y-4">
+                        <!-- Collections will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <h3 class="text-lg font-semibold mb-4">Add New Product</h3>
+            <form id="product-form">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                        Title
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                           id="title" type="text" placeholder="Product title">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                        Description
+                    </label>
+                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                              id="description" placeholder="Product description"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
+                        Price (USD)
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                           id="price" type="number" placeholder="Price in cents" value="0">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+                        Image URL
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                           id="image" type="text" placeholder="Image URL">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-product" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                        Cancel
+                    </button>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        Add Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - in a real implementation, this would come from the backend
+        const products = [
+            {
+                id: 'prod_1',
+                title: 'Elegant Silk Blouse',
+                description: 'A sophisticated silk blouse with subtle patterns and comfortable fit.',
+                price: 8900,
+                image: 'https://images.unsplash.com/photo-1522201949107-688a537a8848?q=80&w=1887&auto=format&fit=crop'
+            },
+            {
+                id: 'prod_2',
+                title: 'Classic Wool Coat',
+                description: 'A timeless wool coat perfect for the colder months.',
+                price: 24900,
+                image: 'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop'
+            }
+        ];
+
+        const collections = [
+            {
+                id: 'collection_1',
+                title: 'The Vernal Collection',
+                description: 'An exploration of light, form, and renewal.'
+            },
+            {
+                id: 'collection_2',
+                title: 'The Nocturne Line',
+                description: 'Tailored silhouettes for the modern night.'
+            }
+        ];
+
+        // DOM Elements
+        const productsList = document.getElementById('products-list');
+        const collectionsList = document.getElementById('collections-list');
+        const productModal = document.getElementById('product-modal');
+        const productForm = document.getElementById('product-form');
+        const addProductBtn = document.getElementById('add-product-btn');
+        const cancelProductBtn = document.getElementById('cancel-product');
+
+        // Render products
+        function renderProducts() {
+            productsList.innerHTML = products.map(product => `
+                <div class="border rounded-lg p-4">
+                    <div class="flex items-start">
+                        <img src="${product.image}" alt="${product.title}" class="w-16 h-16 object-cover rounded mr-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold">${product.title}</h3>
+                            <p class="text-gray-600 text-sm mt-1">${product.description}</p>
+                            <p class="text-gray-900 font-medium mt-2">$${(product.price / 100).toFixed(2)}</p>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render collections
+        function renderCollections() {
+            collectionsList.innerHTML = collections.map(collection => `
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold">${collection.title}</h3>
+                            <p class="text-gray-600 text-sm mt-1">${collection.description}</p>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Event Listeners
+        addProductBtn.addEventListener('click', () => {
+            productModal.classList.remove('hidden');
+            productModal.classList.add('flex');
+        });
+
+        cancelProductBtn.addEventListener('click', () => {
+            productModal.classList.add('hidden');
+            productModal.classList.remove('flex');
+        });
+
+        productForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const price = parseInt(document.getElementById('price').value);
+            const image = document.getElementById('image').value;
+            
+            if (title && description && price && image) {
+                products.push({
+                    id: 'prod_' + (products.length + 1),
+                    title,
+                    description,
+                    price,
+                    image
+                });
+                
+                renderProducts();
+                productForm.reset();
+                productModal.classList.add('hidden');
+                productModal.classList.remove('flex');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderCollections();
+        });
+    </script>
+</body>
+</html>

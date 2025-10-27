@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FORMÉ HAUS - Product Load Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #E8E4DF; }
+        .product { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .product h3 { margin: 0 0 10px 0; color: #3A2A25; }
+        .product img { max-width: 200px; height: auto; }
+        .loading { text-align: center; padding: 40px; font-size: 20px; }
+        .error { color: red; padding: 20px; background: #ffebee; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>FORMÉ HAUS - Product Load Test</h1>
+    <div id="status" class="loading">Loading products...</div>
+    <div id="products"></div>
+
+    <script type="module">
+        const API_KEY = 'pk_51b3045f87cdc166fc04135996ef34c61b82a0676880ae91fbb20d2c09ed5db6';
+        const BASE_URL = 'http://localhost:9000';
+
+        async function testProducts() {
+            const statusDiv = document.getElementById('status');
+            const productsDiv = document.getElementById('products');
+
+            try {
+                console.log('Fetching products from:', `${BASE_URL}/store/products`);
+                
+                const response = await fetch(`${BASE_URL}/store/products?limit=10`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-publishable-api-key': API_KEY
+                    }
+                });
+
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Products data:', data);
+
+                const products = data.products || [];
+                
+                if (products.length === 0) {
+                    statusDiv.innerHTML = '<div class="error">No products found in database!</div>';
+                    return;
+                }
+
+                statusDiv.innerHTML = `<div style="color: green; padding: 20px;">✅ Successfully loaded ${products.length} products!</div>`;
+
+                productsDiv.innerHTML = products.map(product => `
+                    <div class="product">
+                        <h3>${product.title}</h3>
+                        ${product.thumbnail ? `<img src="${product.thumbnail}" alt="${product.title}">` : ''}
+                        <p><strong>Handle:</strong> ${product.handle}</p>
+                        <p><strong>Description:</strong> ${product.description || 'No description'}</p>
+                        <p><strong>Variants:</strong> ${product.variants?.length || 0}</p>
+                        <p><strong>Images:</strong> ${product.images?.length || 0}</p>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading products:', error);
+                statusDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                productsDiv.innerHTML = `<pre>${JSON.stringify(error, null, 2)}</pre>`;
+            }
+        }
+
+        // Run test on page load
+        testProducts();
+    </script>
+</body>
+</html>

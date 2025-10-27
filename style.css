@@ -1,9 +1,87 @@
 :root {
     --color-deep-umber: #3A2A25;
-    --color-off-white: #F7F5F2;
+    --color-off-white: #E8E4DF;
     --color-soft-gold: #D4AF37;
     --color-charcoal: #212121;
     --color-mid-grey: #666666;
+}
+
+/* Geometric Hexagonal Pattern Background */
+.bg-geometric-pattern {
+    --s: 82px;
+    --c1: #b2b2b2;
+    --c2: #ffffff;
+    --c3: #d9d9d9;
+    --_g: var(--c3) 0 120deg, #0000 0;
+    background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+        conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+        conic-gradient(
+            from 60deg at calc(200% / 3),
+            var(--c3) 60deg,
+            var(--c2) 0 120deg,
+            #0000 0
+        ),
+        conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+        linear-gradient(
+            90deg,
+            var(--c1) calc(100% / 6),
+            var(--c2) 0 50%,
+            var(--c1) 0 calc(500% / 6),
+            var(--c2) 0
+        );
+    background-size: calc(1.732 * var(--s)) var(--s);
+}
+
+/* Taupe version of the pattern for brand consistency */
+.bg-geometric-pattern-taupe {
+    --s: 82px;
+    --c1: #D4C5BA;
+    --c2: #E8E4DF;
+    --c3: #CEC1B5;
+    --_g: var(--c3) 0 120deg, #0000 0;
+    background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+        conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+        conic-gradient(
+            from 60deg at calc(200% / 3),
+            var(--c3) 60deg,
+            var(--c2) 0 120deg,
+            #0000 0
+        ),
+        conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+        linear-gradient(
+            90deg,
+            var(--c1) calc(100% / 6),
+            var(--c2) 0 50%,
+            var(--c1) 0 calc(500% / 6),
+            var(--c2) 0
+        );
+    background-size: calc(1.732 * var(--s)) var(--s);
+}
+
+/* Gold version for luxury sections */
+.bg-geometric-pattern-gold {
+    --s: 82px;
+    --c1: #C9A961;
+    --c2: #D4AF37;
+    --c3: #B89A52;
+    --_g: var(--c3) 0 120deg, #0000 0;
+    background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+        conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+        conic-gradient(
+            from 60deg at calc(200% / 3),
+            var(--c3) 60deg,
+            var(--c2) 0 120deg,
+            #0000 0
+        ),
+        conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+        linear-gradient(
+            90deg,
+            var(--c1) calc(100% / 6),
+            var(--c2) 0 50%,
+            var(--c1) 0 calc(500% / 6),
+            var(--c2) 0
+        );
+    background-size: calc(1.732 * var(--s)) var(--s);
 }
 
 body {
@@ -26,7 +104,7 @@ body {
 }
 
 #main-header.scrolled {
-    background-color: rgba(247, 245, 242, 0.9);
+    background-color: rgba(232, 228, 223, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);

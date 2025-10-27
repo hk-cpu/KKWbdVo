@@ -10,6 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-umber': '#3A2A25',
+                        'off-white': '#E8E4DF',
+                        'soft-gold': '#D4AF37',
+                        'charcoal': '#212121',
+                        'mid-grey': '#666666',
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <link rel="stylesheet" href="style.css">
@@ -23,7 +38,7 @@
             <a href="index.html">
                 <img src="https://r2.flowith.net/files/2d4a2b22-5944-4bf1-9d9f-e4791f8fa491/3EWHP-FormeHaus-01-01@2000x1040.png" alt="FORMÉ HAUS Logo" class="h-8 md:h-10 transition-all duration-300" id="header-logo">
             </a>
-            <nav class="hidden md:flex items-center space-x-12 text-sm tracking-wider uppercase font-medium">
+            <nav class="hidden md:flex items-center space-x-8 text-sm tracking-wider uppercase font-medium">
                 <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
                 <div class="nav-item-with-mega-menu">
                     <a href="collections.html" class="nav-link" data-i18n="nav.collections">Collections</a>
@@ -63,9 +78,30 @@
                 <a href="about.html" class="nav-link" data-i18n="nav.about">About</a>
                 <a href="#" class="nav-link" data-i18n="nav.contact">Contact</a>
                 <a id="admin-link" href="#" class="nav-link hidden">Admin</a>
-                <div class="flex items-center gap-2">
-                    <button id="lang-en" class="px-2 py-1 border border-white/20">EN</button>
-                    <button id="lang-ar" class="px-2 py-1 border border-white/20">AR</button>
+                <!-- Language Toggle Switch -->
+                <div class="relative inline-flex items-center ml-4">
+                    <div class="w-28 h-12 rounded-lg has-[:checked]:bg-deep-umber bg-off-white border-2 border-charcoal transition-colors duration-300">
+                        <div class="flex h-full w-full px-1.5 items-center gap-x-1.5">
+                            <div class="w-4 h-4 flex-shrink-0 rounded-full border-2 border-charcoal bg-soft-gold"></div>
+                            <label for="lang-toggle" class="has-[:checked]:scale-x-[-1] w-full h-8 border-2 border-charcoal rounded cursor-pointer overflow-hidden transition-transform duration-300 relative">
+                                <input type="checkbox" id="lang-toggle" class="hidden peer" />
+                                <div class="w-full h-full bg-soft-gold relative">
+                                    <!-- Top triangle -->
+                                    <div class="w-0 h-0 z-20 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[14px] border-t-charcoal relative">
+                                        <div class="w-0 h-0 absolute border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[10px] border-t-soft-gold -top-[14px] -left-3"></div>
+                                    </div>
+                                    <!-- Left skewed panel -->
+                                    <div class="w-4 h-7 z-10 absolute top-2 left-0 bg-soft-gold border-r border-b-2 border-charcoal transform skew-y-[39deg]"></div>
+                                    <!-- Right skewed panel -->
+                                    <div class="w-4 h-7 z-10 absolute top-2 left-4 bg-[#c9a961] border-r-2 border-l border-b-2 border-charcoal transform skew-y-[-39deg]"></div>
+                                </div>
+                                <!-- Text Labels Outside - Counter-flip AR text -->
+                                <span id="lang-label-en" class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-charcoal tracking-wider z-30 pointer-events-none">EN</span>
+                                <span id="lang-label-ar" class="absolute inset-0 hidden items-center justify-center text-[10px] font-bold text-charcoal tracking-wider z-30 pointer-events-none scale-x-[-1]">AR</span>
+                            </label>
+                            <div class="w-4 h-0.5 flex-shrink-0 bg-charcoal rounded-full"></div>
+                        </div>
+                    </div>
                 </div>
                 <button id="cart-button" class="relative">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i>
@@ -120,43 +156,47 @@
 
         <section class="py-24 md:py-32 bg-white">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-12 animate-on-scroll">
-                    <h2 class="font-heading text-4xl md:text-5xl" data-split-text data-i18n="bento.title">Magic Bento</h2>
-                    <p class="mt-4 text-mid-grey max-w-xl mx-auto" data-i18n="bento.desc">Interactive highlights powered by CSS & JS.</p>
-                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-magic-bento>
                     <a href="collections.html" class="mb-card relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop" alt="New Arrivals" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
-                        <div class="mb-card-content relative">
-                            <i data-lucide="sparkles"></i>
+                        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop" alt="New Arrivals" class="absolute inset-0 w-full h-full object-cover opacity-30" loading="lazy"/>
+                        <div class="mb-card-content relative z-10">
+                            <i data-lucide="sparkles" class="w-8 h-8"></i>
                             <h3 class="font-heading text-xl" data-i18n="bento.new">New Arrivals</h3>
                             <p class="text-mid-grey mt-2" data-i18n="bento.new.desc">Explore the latest drops.</p>
                         </div>
                     </a>
                     <a href="collections.html" class="mb-card relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?q=80&w=1400&auto=format&fit=crop" alt="Signature" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
-                        <div class="mb-card-content relative">
-                            <i data-lucide="gem"></i>
+                        <img src="https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?q=80&w=1400&auto=format&fit=crop" alt="Signature" class="absolute inset-0 w-full h-full object-cover opacity-30" loading="lazy"/>
+                        <div class="mb-card-content relative z-10">
+                            <i data-lucide="gem" class="w-8 h-8"></i>
                             <h3 class="font-heading text-xl" data-i18n="bento.signature">Signature Edit</h3>
                             <p class="text-mid-grey mt-2" data-i18n="bento.signature.desc">Timeless pieces reimagined.</p>
                         </div>
                     </a>
                     <a href="collections.html" class="mb-card relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1400&auto=format&fit=crop" alt="Essentials" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
-                        <div class="mb-card-content relative">
-                            <i data-lucide="layers"></i>
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1400&auto=format&fit=crop" alt="Essentials" class="absolute inset-0 w-full h-full object-cover opacity-30" loading="lazy"/>
+                        <div class="mb-card-content relative z-10">
+                            <i data-lucide="layers" class="w-8 h-8"></i>
                             <h3 class="font-heading text-xl" data-i18n="bento.essentials">Essentials</h3>
                             <p class="text-mid-grey mt-2" data-i18n="bento.essentials.desc">Elevated everyday staples.</p>
                         </div>
                     </a>
                     <a href="collections.html" class="mb-card relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1400&auto=format&fit=crop" alt="Accessories" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
-                        <div class="mb-card-content relative">
-                            <i data-lucide="briefcase"></i>
+                        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1400&auto=format&fit=crop" alt="Accessories" class="absolute inset-0 w-full h-full object-cover opacity-30" loading="lazy"/>
+                        <div class="mb-card-content relative z-10">
+                            <i data-lucide="briefcase" class="w-8 h-8"></i>
                             <h3 class="font-heading text-xl" data-i18n="bento.accessories">Accessories</h3>
                             <p class="text-mid-grey mt-2" data-i18n="bento.accessories.desc">Finishing touches that shine.</p>
                         </div>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-off-white">
+            <div class="container mx-auto px-6">
+                <div class="animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop" alt="Fashion showcase" class="w-full h-96 md:h-[600px] object-cover rounded-lg shadow-2xl">
                 </div>
             </div>
         </section>
@@ -224,5 +264,13 @@
     </div>
 
     <script type="module" src="script.js"></script>
+    <script>
+        // Ensure Lucide icons are initialized
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
 </body>
 </html>

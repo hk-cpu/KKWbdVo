@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadProductDetails(handle) {
     try {
-        const product = await medusaService.getProductByHandle(handle);
+        const product = await medusaService.getProductByHandle(handle, getLang());
         if (product) {
             currentProduct = product;
             updateProductPage(product);
@@ -73,19 +73,21 @@ async function loadProductDetails(handle) {
 }
 
 function updateProductPage(product) {
-    // Update product title
-    document.getElementById('product-title').textContent = product.title;
+    // Update product title (localized)
+    document.getElementById('product-title').textContent = medusaService.getProductTitle(product);
     
-    // Update product price
+    // Update product price (currency-aware with better fallback)
     const priceElement = document.getElementById('product-price');
-    const allPrices = (product.variants || []).flatMap(v => (v.prices || []).map(pr => ({ amount: pr.amount, currency: pr.currency_code })));
-    if (allPrices.length) {
-        const lowest = allPrices.reduce((m, a) => a.amount < m.amount ? a : m, allPrices[0]);
-        priceElement.textContent = `$${(lowest.amount / 100).toFixed(2)} ${lowest.currency?.toUpperCase() || ''}`;
+    const currency = medusaService.getCurrentCurrency();
+    const lowestPrice = medusaService.getLowestPrice(product, currency);
+    if (lowestPrice) {
+        priceElement.textContent = medusaService.formatPrice(lowestPrice.amount, currency);
+    } else {
+        priceElement.textContent = 'Price not available';
     }
     
-    // Update product description
-    document.getElementById('product-description').textContent = product.description;
+    // Update product description (localized)
+    document.getElementById('product-description').textContent = medusaService.getProductDescription(product);
     
     // Update product images
     const imagesContainer = document.querySelector('#product-images .swiper-wrapper');
@@ -158,8 +160,45 @@ function updateProductPage(product) {
         }
     });
 }
-    // Language toggle buttons
-    const en = document.getElementById('lang-en');
-    const ar = document.getElementById('lang-ar');
-    if (en) en.addEventListener('click', () => { setLang('en'); applyI18n(document); });
-    if (ar) ar.addEventListener('click', () => { setLang('ar'); applyI18n(document); });
+    // Language toggle
+    const langToggle = document.getElementById('lang-toggle');
+    const labelEn = document.getElementById('lang-label-en');
+    const labelAr = document.getElementById('lang-label-ar');
+    
+    if (langToggle) {
+        // Set initial state based on current language
+        const currentLang = getLang();
+        langToggle.checked = currentLang === 'ar';
+        
+        // Update labels
+        if (labelEn && labelAr) {
+            if (currentLang === 'ar') {
+                labelEn.classList.add('hidden');
+                labelAr.classList.remove('hidden');
+                labelAr.classList.add('flex');
+            } else {
+                labelEn.classList.remove('hidden');
+                labelEn.classList.add('flex');
+                labelAr.classList.add('hidden');
+            }
+        }
+        
+        // Listen for changes
+        langToggle.addEventListener('change', (e) => {
+            setLang(e.target.checked ? 'ar' : 'en');
+            applyI18n(document);
+            
+            // Toggle labels
+            if (labelEn && labelAr) {
+                if (e.target.checked) {
+                    labelEn.classList.add('hidden');
+                    labelAr.classList.remove('hidden');
+                    labelAr.classList.add('flex');
+                } else {
+                    labelEn.classList.remove('hidden');
+                    labelEn.classList.add('flex');
+                    labelAr.classList.add('hidden');
+                }
+            }
+        });
+    }

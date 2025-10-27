@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initCartUI();
 
     // Load products for featured sections or collections page
+    // Clear cache on initial load to ensure fresh data
+    medusaService.clearCache();
     loadFeaturedProducts();
     renderCollectionsProducts();
 
@@ -40,10 +42,55 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagicBento('[data-magic-bento]');
 
     // Language toggle
-    const langEn = document.getElementById('lang-en');
-    const langAr = document.getElementById('lang-ar');
-    if (langEn) langEn.addEventListener('click', () => switchLang('en'));
-    if (langAr) langAr.addEventListener('click', () => switchLang('ar'));
+    const langToggle = document.getElementById('lang-toggle');
+    const labelEn = document.getElementById('lang-label-en');
+    const labelAr = document.getElementById('lang-label-ar');
+    
+    if (langToggle) {
+        // Set initial state based on current language
+        const currentLang = getLang();
+        langToggle.checked = currentLang === 'ar';
+        
+        // Update labels
+        if (labelEn && labelAr) {
+            if (currentLang === 'ar') {
+                labelEn.classList.add('hidden');
+                labelAr.classList.remove('hidden');
+                labelAr.classList.add('flex');
+            } else {
+                labelEn.classList.remove('hidden');
+                labelEn.classList.add('flex');
+                labelAr.classList.add('hidden');
+            }
+        }
+        
+        // Listen for changes
+        langToggle.addEventListener('change', async (e) => {
+            const newLang = e.target.checked ? 'ar' : 'en';
+            switchLang(newLang);
+            
+            // Toggle labels
+            if (labelEn && labelAr) {
+                if (e.target.checked) {
+                    labelEn.classList.add('hidden');
+                    labelAr.classList.remove('hidden');
+                    labelAr.classList.add('flex');
+                } else {
+                    labelEn.classList.remove('hidden');
+                    labelEn.classList.add('flex');
+                    labelAr.classList.add('hidden');
+                }
+            }
+            
+            // Reload products with new language translations
+            if (typeof renderCollectionsProducts === 'function') {
+                await renderCollectionsProducts();
+            }
+            if (typeof loadFeaturedProducts === 'function') {
+                await loadFeaturedProducts();
+            }
+        });
+    }
 
     // Animation for scroll elements
     const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
@@ -77,7 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadFeaturedProducts() {
     try {
-        const products = await medusaService.getAllProducts();
+        // Clear cache to force fresh data
+        medusaService.clearCache();
+        
+        // Get current language for translations
+        const currentLang = getLang();
+        console.log('[loadFeaturedProducts] Starting, lang:', currentLang);
+        const products = await medusaService.getAllProducts(24, currentLang);
+        console.log('[loadFeaturedProducts] Received products:', products.length, products);
         
         // Find the featured products container
         const featuredContainer = document.querySelector('.grid.md\\:grid-cols-2');
@@ -91,8 +145,9 @@ async function loadFeaturedProducts() {
                     const title = item.querySelector('h3');
                     const link = item.querySelector('a');
                     
-                    if (img) img.src = product.images?.[0]?.url || '';
-                    if (title) title.textContent = product.title;
+                    console.log(`[loadFeaturedProducts] Product ${index}:`, product.title, product.images);
+                    if (img) img.src = product.images?.[0]?.url || product.thumbnail || '';
+                    if (title) title.textContent = medusaService.getProductTitle(product);
                     if (link) link.href = `/product.html?handle=${product.handle}`;
                 }
             });
@@ -214,51 +269,89 @@ try {
 
 async function renderCollectionsProducts() {
     const grid = document.getElementById('shop-products-grid');
-    if (!grid) return;
+    if (!grid) {
+        console.log('[renderCollectionsProducts] Grid element not found');
+        return;
+    }
+    
     try {
-        // Check URL param for collection
+        console.log('[renderCollectionsProducts] Starting...');
+        
+        // Clear cache to force fresh data
+        medusaService.clearCache();
+        
+        // Get current language for translations
+        const currentLang = getLang();
+        
+        // Check URL param for collection or type
         const params = new URLSearchParams(window.location.search);
         const handle = params.get('collection');
+        const typeId = params.get('type');
         let products = [];
-        if (handle) {
+        
+        if (typeId) {
+          console.log('[renderCollectionsProducts] Loading by type:', typeId);
+          products = await medusaService.getProductsByType(typeId, 24, currentLang);
+        } else if (handle) {
+          console.log('[renderCollectionsProducts] Loading by collection:', handle);
           const col = await medusaService.getCollectionByHandle(handle);
           if (col?.id) {
-            products = await medusaService.getProductsByCollection(col.id);
+            products = await medusaService.getProductsByCollection(col.id, 24, currentLang);
           } else {
-            products = await medusaService.getAllProducts();
+            products = await medusaService.getAllProducts(24, currentLang);
           }
         } else {
-          products = await medusaService.getAllProducts();
+          console.log('[renderCollectionsProducts] Loading all products');
+          products = await medusaService.getAllProducts(24, currentLang);
         }
+        
+        console.log('[renderCollectionsProducts] Products loaded:', products.length);
+        
+        if (products.length === 0) {
+            grid.innerHTML = '<div class="col-span-full text-center py-8">No products available.</div>';
+            return;
+        }
+        
         const priceFmt = (p) => {
-          const amounts = (p.variants || []).flatMap(v => (v.prices || []).map(pr => ({ amount: pr.amount, currency: pr.currency_code })));
-          if (!amounts.length) return '';
-          const lowest = amounts.reduce((m, a) => a.amount < m.amount ? a : m, amounts[0]);
-          return `$${(lowest.amount / 100).toFixed(2)} ${lowest.currency?.toUpperCase() || ''}`;
+          const currency = medusaService.getCurrentCurrency();
+          const lowestPrice = medusaService.getLowestPrice(p, currency);
+          if (!lowestPrice) return 'Price not available';
+          return medusaService.formatPrice(lowestPrice.amount, currency);
         };
+        
         grid.innerHTML = products.map(p => `
           <a href="/product.html?handle=${p.handle}" class="group block">
             <div class="aspect-[4/5] overflow-hidden bg-gray-100">
-              <img src="${p.images?.[0]?.url || ''}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+              <img src="${p.images?.[0]?.url || p.thumbnail || ''}" alt="${medusaService.getProductTitle(p)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
             </div>
             <div class="mt-3 flex items-baseline justify-between">
-              <h3 class="text-sm">${p.title}</h3>
+              <h3 class="text-sm">${medusaService.getProductTitle(p)}</h3>
               <span class="text-soft-gold text-sm">${priceFmt(p)}</span>
             </div>
           </a>
         `).join('');
+        
+        console.log('[renderCollectionsProducts] Grid updated with', products.length, 'products');
 
-        // Render collections filter if container exists
-        const bar = document.getElementById('collections-bar');
-        if (bar) {
-          const cols = await medusaService.getCollections();
-          bar.innerHTML = cols.map(c => `
-             <a class="px-3 py-1 border border-white/20 hover:border-soft-gold transition" href="/collections.html?collection=${c.handle}">${c.title}</a>
+        // Render collections AND types filter bars if containers exist
+        const collectionsBar = document.getElementById('collections-bar');
+        if (collectionsBar) {
+          const cols = await medusaService.getCollections(20, currentLang);
+          collectionsBar.innerHTML = cols.map(c => `
+             <a class="px-3 py-1 border border-white/20 hover:border-soft-gold transition" href="/collections.html?collection=${c.handle}">${medusaService.getTranslatedField(c, 'title')}</a>
+          `).join('');
+        }
+        
+        const typesBar = document.getElementById('types-bar');
+        if (typesBar) {
+          const types = await medusaService.getProductTypes();
+          typesBar.innerHTML = types.map(t => `
+             <a class="px-3 py-1 border border-white/20 hover:border-soft-gold transition" href="/collections.html?type=${t.id}">${t.value}</a>
           `).join('');
         }
     } catch (e) {
         console.error('Error rendering collections products', e);
-        grid.innerHTML = '<div class="col-span-full text-center">Failed to load products.</div>';
+        grid.innerHTML = '<div class="col-span-full text-center py-8 text-red-600">Failed to load products. Check console for details.</div>';
     }
 }
 

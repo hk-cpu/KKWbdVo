@@ -1,0 +1,13 @@
+Error starting Medusa server: AwilixResolutionError: Could not resolve '__pg_connection__'.
+
+Resolution path: __pg_connection__
+    at Object.resolve (C:\Users\futte\Desktop\we are close\medusa-storefront\node_modules\awilix\lib\container.js:252:23)
+    at MedusaAppLoader.prepareSharedResourcesAndDeps (C:\Users\futte\Desktop\we are close\medusa-storefront\node_modules\@medusajs\framework\dist\medusa-app-loader.js:71:126)
+    at MedusaAppLoader.load (C:\Users\futte\Desktop\we are close\medusa-storefront\node_modules\@medusajs\framework\dist\medusa-app-loader.js:164:70)
+    at startServer (C:\Users\futte\Desktop\we are close\medusa-storefront\server.js:20:21)
+    at Object.<anonymous> (C:\Users\futte\Desktop\we are close\medusa-storefront\server.js:28:1)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)

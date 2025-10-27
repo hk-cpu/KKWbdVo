@@ -23,7 +23,7 @@
             <a href="index.html">
                 <img src="https://r2.flowith.net/files/2d4a2b22-5944-4bf1-9d9f-e4791f8fa491/3EWHP-FormeHaus-01-01@2000x1040.png" alt="FORMÉ HAUS Logo" class="h-8 md:h-10 transition-all duration-300" id="header-logo">
             </a>
-            <nav class="hidden md:flex items-center space-x-12 text-sm tracking-wider uppercase font-medium">
+            <nav class="hidden md:flex items-center space-x-8 text-sm tracking-wider uppercase font-medium">
                 <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
                 <div class="nav-item-with-mega-menu">
                     <a href="collections.html" class="nav-link" data-i18n="nav.collections">Collections</a>
@@ -63,9 +63,30 @@
                 <a href="about.html" class="nav-link" data-i18n="nav.about">About</a>
                 <a href="#" class="nav-link" data-i18n="nav.contact">Contact</a>
                 <a id="admin-link" href="#" class="nav-link hidden">Admin</a>
-                <div class="flex items-center gap-2">
-                    <button id="lang-en" class="px-2 py-1 border border-white/20">EN</button>
-                    <button id="lang-ar" class="px-2 py-1 border border-white/20">AR</button>
+                <!-- Language Toggle Switch -->
+                <div class="relative inline-flex items-center ml-4">
+                    <div class="w-28 h-12 rounded-lg has-[:checked]:bg-deep-umber bg-off-white border-2 border-charcoal transition-colors duration-300">
+                        <div class="flex h-full w-full px-1.5 items-center gap-x-1.5">
+                            <div class="w-4 h-4 flex-shrink-0 rounded-full border-2 border-charcoal bg-soft-gold"></div>
+                            <label for="lang-toggle" class="has-[:checked]:scale-x-[-1] w-full h-8 border-2 border-charcoal rounded cursor-pointer overflow-hidden transition-transform duration-300 relative">
+                                <input type="checkbox" id="lang-toggle" class="hidden peer" />
+                                <div class="w-full h-full bg-soft-gold relative">
+                                    <!-- Top triangle -->
+                                    <div class="w-0 h-0 z-20 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[14px] border-t-charcoal relative">
+                                        <div class="w-0 h-0 absolute border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[10px] border-t-soft-gold -top-[14px] -left-3"></div>
+                                    </div>
+                                    <!-- Left skewed panel -->
+                                    <div class="w-4 h-7 z-10 absolute top-2 left-0 bg-soft-gold border-r border-b-2 border-charcoal transform skew-y-[39deg]"></div>
+                                    <!-- Right skewed panel -->
+                                    <div class="w-4 h-7 z-10 absolute top-2 left-4 bg-[#c9a961] border-r-2 border-l border-b-2 border-charcoal transform skew-y-[-39deg]"></div>
+                                </div>
+                                <!-- Text Labels Outside - Counter-flip AR text -->
+                                <span id="lang-label-en" class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-charcoal tracking-wider z-30 pointer-events-none">EN</span>
+                                <span id="lang-label-ar" class="absolute inset-0 hidden items-center justify-center text-[10px] font-bold text-charcoal tracking-wider z-30 pointer-events-none scale-x-[-1]">AR</span>
+                            </label>
+                            <div class="w-4 h-0.5 flex-shrink-0 bg-charcoal rounded-full"></div>
+                        </div>
+                    </div>
                 </div>
                 <button id="cart-button" class="relative">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i>
