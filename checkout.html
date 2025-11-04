@@ -55,7 +55,40 @@
   <main class="pt-32 pb-16 md:pt-40 md:pb-24">
     <div class="container mx-auto px-6">
       <div class="text-center mb-10">
-        <h1 class="font-heading text-3xl md:text-4xl" data-i18n="checkout.title">Checkout</h1>
+        <h1 class="font-heading text-3xl md:text-4xl mb-8" data-i18n="checkout.title">Checkout</h1>
+        
+        <!-- Checkout Steps Progress Indicator -->
+        <div class="max-w-4xl mx-auto mb-12">
+          <div class="flex items-center justify-between relative">
+            <!-- Progress Line Background -->
+            <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-300 -translate-y-1/2 -z-10"></div>
+            <div id="progress-line" class="absolute top-1/2 left-0 h-0.5 bg-soft-gold -translate-y-1/2 -z-10 transition-all duration-500" style="width: 0%"></div>
+            
+            <!-- Step 1: Shipping Address -->
+            <div class="flex flex-col items-center flex-1">
+              <div id="step-1" class="w-12 h-12 rounded-full bg-soft-gold text-white flex items-center justify-center font-semibold text-lg border-4 border-off-white transition-all duration-300">
+                1
+              </div>
+              <span class="mt-2 text-sm font-medium">Shipping Address</span>
+            </div>
+            
+            <!-- Step 2: Payment -->
+            <div class="flex flex-col items-center flex-1">
+              <div id="step-2" class="w-12 h-12 rounded-full bg-gray-300 text-charcoal flex items-center justify-center font-semibold text-lg border-4 border-off-white transition-all duration-300">
+                2
+              </div>
+              <span class="mt-2 text-sm font-medium">Payment</span>
+            </div>
+            
+            <!-- Step 3: Thank You -->
+            <div class="flex flex-col items-center flex-1">
+              <div id="step-3" class="w-12 h-12 rounded-full bg-gray-300 text-charcoal flex items-center justify-center font-semibold text-lg border-4 border-off-white transition-all duration-300">
+                3
+              </div>
+              <span class="mt-2 text-sm font-medium">Thank You</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">

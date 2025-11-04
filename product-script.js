@@ -2,6 +2,7 @@ import { animate, inView } from 'https://esm.run/framer-motion';
 import medusaService from './medusa-service.js';
 import { applyI18n, getLang, setLang } from './i18n.js';
 import { applySplitText } from './split-text.js';
+import { initClickSpark } from './click-spark.js';
 
 let currentProduct = null;
 let selectedVariantId = null;
@@ -33,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (productHandle) {
         loadProductDetails(productHandle);
     }
+
+    // Language toggle
+    initLanguageToggle();
+    
+    // Initialize mobile menu
+    initMobileMenu();
 
     // Animation for scroll elements
     const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
@@ -160,7 +167,8 @@ function updateProductPage(product) {
         }
     });
 }
-    // Language toggle
+
+function initLanguageToggle() {
     const langToggle = document.getElementById('lang-toggle');
     const labelEn = document.getElementById('lang-label-en');
     const labelAr = document.getElementById('lang-label-ar');
@@ -202,3 +210,23 @@ function updateProductPage(product) {
             }
         });
     }
+}
+
+function initMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.md\\:hidden button');
+    const nav = document.querySelector('nav.hidden.md\\:flex');
+    
+    if (mobileMenuBtn && nav) {
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+            nav.classList.toggle('fixed');
+            nav.classList.toggle('inset-0');
+            nav.classList.toggle('bg-off-white');
+            nav.classList.toggle('flex-col');
+            nav.classList.toggle('items-center');
+            nav.classList.toggle('justify-center');
+            nav.classList.toggle('z-50');
+        });
+    }
+}

@@ -5,6 +5,7 @@ import { initScrollVelocity } from './scroll-velocity.js';
 import { initLightRays } from './light-rays.js';
 import { initMagicBento } from './magic-bento.js';
 import { applyI18n, getLang, setLang } from './i18n.js';
+import { initClickSpark } from './click-spark.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
@@ -23,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
+
+    // Initialize mobile menu
+    initMobileMenu();
 
     // Initialize language and cart UI
     setLang(getLang());
@@ -364,4 +368,61 @@ function switchLang(lang) {
     setLang(lang);
     applyI18n(document);
     runSplitText();
+}
+
+function initMobileMenu() {
+    const mobileMenuBtn = document.querySelector('button.md\\:hidden');
+    const nav = document.querySelector('nav.hidden.md\\:flex');
+    const header = document.getElementById('main-header');
+    
+    if (mobileMenuBtn && nav) {
+        let isMenuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Open menu
+                nav.classList.remove('hidden');
+                nav.classList.add('flex', 'fixed', 'inset-0', 'bg-off-white', 'flex-col', 'items-center', 'justify-center', 'z-[60]', 'pt-24');
+                document.body.style.overflow = 'hidden';
+                
+                // Change icon to X
+                const icon = mobileMenuBtn.querySelector('[data-lucide="menu"]');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'x');
+                    lucide.createIcons();
+                }
+            } else {
+                // Close menu
+                nav.classList.add('hidden');
+                nav.classList.remove('flex', 'fixed', 'inset-0', 'bg-off-white', 'flex-col', 'items-center', 'justify-center', 'z-[60]', 'pt-24');
+                document.body.style.overflow = '';
+                
+                // Change icon back to menu
+                const icon = mobileMenuBtn.querySelector('[data-lucide="x"]');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                }
+            }
+        });
+        
+        // Close menu when clicking on a link
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) {
+                    mobileMenuBtn.click();
+                }
+            });
+        });
+        
+        // Close menu on window resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && isMenuOpen) {
+                mobileMenuBtn.click();
+            }
+        });
+    }
 }
