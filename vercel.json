@@ -4,12 +4,6 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "vite",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -20,9 +14,5 @@
         }
       ]
     }
-  ],
-  "env": {
-    "VITE_MEDUSA_BACKEND_URL": "@medusa_backend_url",
-    "VITE_MEDUSA_ADMIN_URL": "@medusa_admin_url"
-  }
+  ]
 }
