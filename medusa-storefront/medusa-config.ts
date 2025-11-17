@@ -2,13 +2,22 @@ import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
+// Helper function to parse CORS origins
+const parseCorsOrigins = (corsEnvVar: string | undefined, defaultOrigins: string[]) => {
+  if (!corsEnvVar) {
+    return defaultOrigins
+  }
+  
+  return corsEnvVar.split(',').map((origin) => origin.trim())
+}
+
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http: {
-      storeCors: process.env.STORE_CORS!,
-      adminCors: process.env.ADMIN_CORS!,
-      authCors: process.env.AUTH_CORS!,
+      storeCors: parseCorsOrigins(process.env.STORE_CORS, ["http://localhost:3000"]),
+      adminCors: parseCorsOrigins(process.env.ADMIN_CORS, ["http://localhost:3000"]),
+      authCors: parseCorsOrigins(process.env.AUTH_CORS, ["http://localhost:3000"]),
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }

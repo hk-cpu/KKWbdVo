@@ -17,13 +17,22 @@ async function startServer() {
     // Create and start the Medusa application
     const app = await createApp({
       configModule,
-      port: 9000,
+      port: process.env.PORT || 9000, // Use Vercel's PORT or default to 9000
     });
     
-    console.log('Medusa server started on port 9000');
+    console.log(`Medusa server started on port ${process.env.PORT || 9000}`);
+    
+    // Export the app for Vercel
+    module.exports = app;
   } catch (error) {
     console.error('Error starting Medusa server:', error);
   }
 }
 
-startServer();
+// Check if we're running on Vercel
+if (require.main === module) {
+  startServer();
+} else {
+  // Export for Vercel
+  module.exports = startServer;
+}
