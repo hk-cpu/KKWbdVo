@@ -1,0 +1,50 @@
+# Dependencies
+node_modules
+
+# Medusa backend (not deployed with frontend)
+medusa-storefront
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build artifacts (generated during deployment)
+dist
+
+# Development files
+.snapshots
+*.log
+*.err
+
+# Documentation
+COMPLETE_IMPLEMENTATION_SUMMARY.md
+PRODUCTION_IMPROVEMENTS.md
+PROJECT_BACKUP_2025-10-27.md
+SAMPLE_PRODUCTS_GUIDE.md
+SAUDI_IMPLEMENTATION_SUMMARY.md
+TOLGEE_SETUP.md
+
+# Batch files (Windows-specific)
+*.bat
+
+# Test files
+test-products.html
+mock-medusa-server.js
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+hello-fly
+local-server.js

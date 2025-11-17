@@ -111,6 +111,47 @@ npx medusa exec ./src/scripts/seed-saudi-market.ts
 - GSAP (animations)
 - Lenis (smooth scrolling)
 
+## 🚀 Vercel Deployment
+
+### Prerequisites
+- Vercel account (free tier works)
+- Deployed Medusa backend (or use the local backend URL for testing)
+
+### Deploy to Vercel
+
+1. **Install Vercel CLI (optional):**
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy via Vercel CLI:**
+   ```bash
+   vercel
+   ```
+
+3. **Or Deploy via Vercel Dashboard:**
+   - Import your GitHub repository in Vercel
+   - Vercel will auto-detect the Vite framework
+   - Configure environment variables in Vercel dashboard
+
+4. **Configure Environment Variables in Vercel:**
+   Go to your project settings in Vercel and add:
+   ```
+   VITE_MEDUSA_BACKEND_URL=https://your-medusa-backend.com
+   VITE_MEDUSA_ADMIN_URL=https://your-medusa-admin.com
+   ```
+
+5. **Build Settings (auto-detected):**
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+### Important Notes
+- The frontend is a static site and can be deployed to Vercel
+- The Medusa backend should be deployed separately (e.g., Railway, Render, or your own server)
+- Make sure to update CORS settings in your Medusa backend to include your Vercel domain
+- Environment variables must be prefixed with `VITE_` to be exposed to the frontend
+
 ## 🐛 Troubleshooting
 
 **Port 9000 already in use:**
@@ -122,11 +163,13 @@ taskkill /F /PID <PID>
 **CORS errors:**
 - Ensure ports match in `.env` `STORE_CORS`
 - Restart backend after changing `.env`
+- Add your Vercel domain to CORS settings in Medusa backend
 
 **Products not loading:**
 - Run seed scripts
 - Check backend logs
 - Verify database connection
+- Verify environment variables in Vercel
 
 ## 📚 Documentation
 
