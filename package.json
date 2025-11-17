@@ -6,12 +6,12 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "deploy:full": "node deploy-full.js"
     },
     "dependencies": {
         "@medusajs/js-sdk": "^2.11.1",
-        "@medusajs/medusa-js": "^6.1.10",
-        "babel": "^5.8.38"
+        "@medusajs/medusa-js": "^6.1.10"
     },
     "devDependencies": {
         "@babel/cli": "^7.28.3",
