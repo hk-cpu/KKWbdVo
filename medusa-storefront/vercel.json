@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "start-server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "dist/**",
+          ".medusa/**",
+          "src/**",
+          "medusa-config.js",
+          "medusa-config.ts",
+          ".env",
+          ".env.production"
+        ],
+        "project-id": "prj_jf60a6NitGCf4s7Ggo0rA3uuhoFa"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "start-server.js"
+    }
+  ],
+  "env": {
+    "VERCEL_PROJECT_ID": "prj_jf60a6NitGCf4s7Ggo0rA3uuhoFa"
+  }
+}
